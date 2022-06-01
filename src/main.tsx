@@ -55,10 +55,79 @@ const Button = {
         backgroundColor: "brand.600",
       },
     },
+    ghost: {
+      padding: "8px 12px",
+      height: "unset",
+      borderRadius: "none",
+      borderBottom: "1px solid transparent",
+      _hover: {
+        backgroundColor: "transparent",
+        borderBottomColor: "#FEFEFE",
+        color: "#fff",
+      },
+    },
   },
 };
 
-const components = { Table, Button };
+const Container = {
+  baseStyle: {
+    maxWidth: ["90%", "576px", "768px", "992px", "1200px", "1400px"],
+  },
+};
+
+export const Checkbox = {
+  baseStyle: {
+    control: {
+      borderRadius: "0",
+      border: "1px solid",
+      borderColor: "#525F80",
+
+      "&[data-focus]": {
+        boxShadow: "none",
+      },
+
+      "&[data-checked]": {
+        bg: "brand.500",
+        border: "1px solid",
+        borderColor: "#525F80",
+
+        "&[data-hover]": {
+          bg: "brand.500",
+        },
+      },
+
+      "&[data-disabled]": {
+        bg: "transparent",
+        borderColor: "#525F80",
+        cursor: "auto",
+
+        "&[data-checked]": {
+          bg: "brand.500",
+          borderColor: "#525F80",
+          cursor: "auto",
+
+          "&[data-hover]": {
+            bg: "brand.500",
+            borderColor: "#525F80",
+            cursor: "auto",
+          },
+        },
+      },
+    },
+
+    label: {
+      "&[data-disabled]": {
+        cursor: "auto",
+
+        "&[data-hover]": {
+          cursor: "auto",
+        },
+      },
+    },
+  },
+};
+
+const components = { Table, Button, Container, Checkbox };
 
 const theme = extendTheme({ fonts, colors, components });
 
