@@ -1,13 +1,29 @@
 import { Box, Flex, Tag, Button, Container } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { Header } from "../components/Header";
-import { GlassCard } from "../components/Card";
-import { Answer } from "../components/Answer";
-import headerImage from "../assets/img/answer-header-banner.jpg";
+import { Header } from "../../components/Header";
+import { GlassCard } from "../../components/Card";
+import headerImage from "../../assets/img/answer-header-banner.jpg";
+
+import { Answers } from "./answers";
+import { Analytics } from "./analytics";
+
+const tabs = ["answers", "analytics"];
 
 export const Topic = () => {
+  const [activeTab, setActiveTab] = useState("answers");
+
+  useEffect(() => {
+    const { hash } = window.location;
+    const tab = hash.replace("#", "").toLowerCase();
+
+    if (tab && tabs.includes(tab) && tab !== activeTab) {
+      setActiveTab(tab);
+    }
+  }, []);
+
   return (
     <>
       <Header backgroundImage={headerImage}>
@@ -50,18 +66,21 @@ export const Topic = () => {
             <Button
               variant="ghost"
               fontSize="20px"
-              color="#fff"
-              borderColor="white"
+              color={activeTab === "answers" ? "white" : "#525F7F"}
+              borderColor={activeTab === "answers" ? "white" : "transparent"}
               p="20px 30px"
+              onClick={() => setActiveTab("answers")}
             >
               Answers
             </Button>
             <Button
               variant="ghost"
               fontSize="20px"
-              color="#525F7F"
+              color={activeTab === "analytics" ? "white" : "#525F7F"}
+              borderColor={activeTab === "analytics" ? "white" : "transparent"}
               ml={4}
               p="20px 30px"
+              onClick={() => setActiveTab("analytics")}
             >
               Analytics
             </Button>
@@ -87,10 +106,8 @@ export const Topic = () => {
         >
           <GlassCard py={10}>
             <Container>
-              <Answer />
-              <Answer mt={8} />
-              <Answer mt={8} />
-              <Answer mt={8} />
+              {activeTab === "answers" && <Answers />}
+              {activeTab === "analytics" && <Analytics />}
             </Container>
           </GlassCard>
         </Container>
