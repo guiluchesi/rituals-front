@@ -1,5 +1,6 @@
 import { Box, Flex, Button, Tag, StyleProps } from "@chakra-ui/react";
 
+import { Link } from "../Link";
 import { Table, RowProps, ColumnProps } from "./Table";
 
 export interface RitualProps extends StyleProps {
@@ -58,15 +59,17 @@ export const Ritual = ({ rows, minTopicWidth, ...rest }: RitualProps) => {
           mt={[4, 4, 4, 0]}
         >
           <Button>Participate</Button>
-          <Button
-            mt={[2, 2, 2, 0]}
-            bgColor="brand.600"
-            _hover={{
-              backgroundColor: "brand.800",
-            }}
-          >
-            View answers
-          </Button>
+          <Link to="topic/123">
+            <Button
+              mt={[2, 2, 2, 0]}
+              bgColor="brand.600"
+              _hover={{
+                backgroundColor: "brand.800",
+              }}
+            >
+              View answers
+            </Button>
+          </Link>
         </Flex>
       </Flex>
     </Box>

@@ -6,7 +6,7 @@ import { Topic } from "./pages/topic";
 const App = () => (
   <BrowserRouter>
     <Routes>
-      <Route path="/">
+      <Route path="/:company">
         <Route index element={<Home />} />
         <Route path="topic/:topicId" element={<Topic />} />
       </Route>

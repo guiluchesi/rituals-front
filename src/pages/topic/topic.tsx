@@ -1,8 +1,8 @@
 import { Box, Flex, Tag, Button, Container } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
+import { Link } from "../../components/Link";
 import { Header } from "../../components/Header";
 import { GlassCard } from "../../components/Card";
 import headerImage from "../../assets/img/answer-header-banner.jpg";
