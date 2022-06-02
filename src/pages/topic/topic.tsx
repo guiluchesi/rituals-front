@@ -110,6 +110,21 @@ export const Topic = () => {
               {activeTab === "analytics" && <Analytics />}
             </Container>
           </GlassCard>
+
+          <Link
+            to="/"
+            style={{ display: "block", textAlign: "right", marginTop: 30 }}
+          >
+            <Button
+              leftIcon={<ArrowBackIcon transform="scale(1.3)" />}
+              bgColor="#32304A"
+              color="brand.300"
+              fontWeight={500}
+              p="10px 28px 10px 17px"
+            >
+              Back
+            </Button>
+          </Link>
         </Container>
       </Box>
     </>

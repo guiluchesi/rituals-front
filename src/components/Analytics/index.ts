@@ -1,1 +1,2 @@
-export { Range } from "./Range";
+export { WordCloud } from "./WordCloud";
+export { Range } from "./range";
