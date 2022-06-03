@@ -93,6 +93,9 @@ export const Analytics = ({ ritualId }: AnalyticsProps) => {
             scaleX="People"
             labels={labels}
             data={data}
+            datasetSizes={{
+              categoryPercentage: 0.5,
+            }}
             mt={numeric.length > 0 ? 7 : 0}
           />
         );
