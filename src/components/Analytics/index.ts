@@ -1,2 +1,2 @@
 export { WordCloud } from "./WordCloud";
-export { Range } from "./range";
+export { Range } from "./RangeAnalytics";
