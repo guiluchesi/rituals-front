@@ -16,7 +16,9 @@ const getAnalytics = async (ritualId: string, company: string) => {
   });
 
   return fetch(
-    `http://localhost:8000/rituals/${ritualId}/analytics?${queryParams}`
+    `${
+      import.meta.env.VITE_API_PATH
+    }/rituals/${ritualId}/analytics?${queryParams}`
   ).then((res) => res.json());
 };
 

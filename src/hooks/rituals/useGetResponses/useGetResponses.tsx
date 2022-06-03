@@ -83,7 +83,9 @@ const getResponses = async (ritualId: string, company: string) => {
   });
 
   return fetch(
-    `http://localhost:8000/rituals/${ritualId}/responses?${queryParams}`
+    `${
+      import.meta.env.VITE_API_PATH
+    }/rituals/${ritualId}/responses?${queryParams}`
   ).then((res) => res.json());
 };
 

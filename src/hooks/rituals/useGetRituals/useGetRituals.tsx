@@ -11,8 +11,8 @@ const getRituals = async () => {
     search: "check",
   });
 
-  return fetch(`http://localhost:8000/rituals?${queryParams}`).then((res) =>
-    res.json()
+  return fetch(`${import.meta.env.VITE_API_PATH}/rituals?${queryParams}`).then(
+    (res) => res.json()
   );
 };
 
