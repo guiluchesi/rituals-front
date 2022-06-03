@@ -62,6 +62,7 @@ export const Range = ({
         },
         ticks: {
           color: "#fff",
+          stepSize: 1,
           font: {
             size: 12,
           },
@@ -79,6 +80,7 @@ export const Range = ({
         },
         ticks: {
           color: "#fff",
+          stepSize: 1,
           font: {
             size: 12,
           },
