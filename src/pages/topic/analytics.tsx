@@ -1,50 +1,103 @@
 import { Range, WordCloud } from "../../components/Analytics";
+import { Analityc, useGetAnalytics } from "../../hooks/rituals/useGetAnalytics";
 
-export const Analytics = () => {
-  const confidentLabels = ["5", "4", "3", "2", "1"];
-  const confidentData = confidentLabels.map(
-    () => Math.floor(Math.random() * 10) + 1
+export interface AnalyticsProps {
+  ritualId: string;
+}
+
+const fieldTypes = {
+  text: ["short_text", "long_text"],
+  range: ["opinion_scale"],
+  boolean: ["yes_no"],
+};
+
+export const Analytics = ({ ritualId }: AnalyticsProps) => {
+  const { analytics } = useGetAnalytics(ritualId);
+
+  const { textual, numeric, boolean } = analytics.reduce(
+    (acc, curr) => {
+      const { type } = curr;
+
+      if (fieldTypes.text.includes(type)) {
+        return {
+          ...acc,
+          textual: [...acc.textual, curr],
+        };
+      }
+
+      if (fieldTypes.range.includes(type)) {
+        return {
+          ...acc,
+          numeric: [...acc.numeric, curr],
+        };
+      }
+
+      if (fieldTypes.boolean.includes(type)) {
+        return {
+          ...acc,
+          boolean: [...acc.boolean, curr],
+        };
+      }
+
+      return acc;
+    },
+    {
+      textual: [] as Analityc[],
+      numeric: [] as Analityc[],
+      boolean: [] as Analityc[],
+    }
   );
 
-  const blockLabels = ["Y", "N"];
-  const BlockData = blockLabels.map(() => Math.floor(Math.random() * 10) + 1);
-
-  const answer1 = `
-  Meetings with new client
-    - Tasks
-    - Reports
-  `;
-  const answer2 = `We had a meeting with the client`;
-  const answer3 = `we are having too much meetings for my taste`;
-  const answer4 = `meetings are super cool`;
-  const answer5 = `I love our new client`;
-  const answer6 = `Talk to client and report`;
+  const textualAnswers = textual.flatMap(
+    (response) => response.answers as string[]
+  );
 
   return (
     <>
-      <Range
-        title="How confident are you?"
-        scaleX="People"
-        scaleY="Satisfaction"
-        labels={confidentLabels}
-        data={confidentData}
-      />
+      {numeric.map((response, index) => {
+        const labels = [...Array(response?.range ?? 0).keys()];
 
-      <Range
-        title="Is something blocking you?"
-        scaleX="People"
-        labels={blockLabels}
-        data={BlockData}
-        datasetSizes={{
-          categoryPercentage: 0.5,
-        }}
-        mt={7}
-      />
+        const data = labels.map((label) => {
+          const answer = (response.answers as number[]).filter(
+            (answer) => answer === label
+          );
+          return answer.length;
+        });
 
-      <WordCloud
-        title="Word Cloud"
-        phrases={[answer1, answer2, answer3, answer4, answer5, answer6]}
-      />
+        return (
+          <Range
+            title={response.title}
+            scaleX="People"
+            labels={labels.map((number) => number.toString())}
+            data={data}
+            mt={index === 0 ? 0 : 7}
+          />
+        );
+      })}
+
+      {boolean.map((response) => {
+        const labels = ["Y", "N"];
+
+        const data = labels.map((label) => {
+          const truthyAnswers = label === "Y";
+          const answer = (response.answers as boolean[]).filter(
+            (answer: boolean) => answer === truthyAnswers
+          );
+          return answer.length;
+        });
+
+        return (
+          <Range
+            title={response.title}
+            scaleX="People"
+            labels={labels}
+            data={data}
+            mt={numeric.length > 0 ? 7 : 0}
+          />
+        );
+      })}
+
+      <WordCloud title="Word Cloud" phrases={textualAnswers} />
     </>
   );
 };

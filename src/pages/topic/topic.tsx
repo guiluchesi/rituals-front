@@ -109,7 +109,9 @@ export const Topic = () => {
               {activeTab === "answers" && topicId && (
                 <Responses ritualId={topicId} />
               )}
-              {activeTab === "analytics" && <Analytics />}
+              {activeTab === "analytics" && topicId && (
+                <Analytics ritualId={topicId} />
+              )}
             </Container>
           </GlassCard>
 
