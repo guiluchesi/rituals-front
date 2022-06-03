@@ -1,4 +1,4 @@
-import { Range, WordCloud } from "../../components/Analytics";
+import { Range, RangeSkeleton, WordCloud } from "../../components/Analytics";
 import { Analityc, useGetAnalytics } from "../../hooks/rituals/useGetAnalytics";
 
 export interface AnalyticsProps {
@@ -12,7 +12,7 @@ const fieldTypes = {
 };
 
 export const Analytics = ({ ritualId }: AnalyticsProps) => {
-  const { analytics } = useGetAnalytics(ritualId);
+  const { analytics, isLoading } = useGetAnalytics(ritualId);
 
   const [_, ...analyticsWithoutNameQuestion] = analytics;
   const { textual, numeric, boolean } = analyticsWithoutNameQuestion.reduce(
@@ -55,53 +55,63 @@ export const Analytics = ({ ritualId }: AnalyticsProps) => {
 
   return (
     <>
-      {numeric.map((response, index) => {
-        const labels = [...Array(response?.range ?? 0).keys()];
+      {isLoading ? (
+        <>
+          <RangeSkeleton />
+          <RangeSkeleton />
+          <RangeSkeleton />
+        </>
+      ) : (
+        <>
+          {numeric.map((response, index) => {
+            const labels = [...Array(response?.range ?? 0).keys()];
 
-        const data = labels.map((label) => {
-          const answer = (response.answers as number[]).filter(
-            (answer) => answer === label
-          );
-          return answer.length;
-        });
+            const data = labels.map((label) => {
+              const answer = (response.answers as number[]).filter(
+                (answer) => answer === label
+              );
+              return answer.length;
+            });
 
-        return (
-          <Range
-            title={response.title}
-            scaleX="People"
-            labels={labels.map((number) => number.toString())}
-            data={data}
-            mt={index === 0 ? 0 : 7}
-          />
-        );
-      })}
+            return (
+              <Range
+                title={response.title}
+                scaleX="People"
+                labels={labels.map((number) => number.toString())}
+                data={data}
+                mt={index === 0 ? 0 : 7}
+              />
+            );
+          })}
 
-      {boolean.map((response) => {
-        const labels = ["Y", "N"];
+          {boolean.map((response) => {
+            const labels = ["Y", "N"];
 
-        const data = labels.map((label) => {
-          const truthyAnswers = label === "Y";
-          const answer = (response.answers as boolean[]).filter(
-            (answer: boolean) => answer === truthyAnswers
-          );
-          return answer.length;
-        });
+            const data = labels.map((label) => {
+              const truthyAnswers = label === "Y";
+              const answer = (response.answers as boolean[]).filter(
+                (answer: boolean) => answer === truthyAnswers
+              );
+              return answer.length;
+            });
 
-        return (
-          <Range
-            title={response.title}
-            scaleX="People"
-            labels={labels}
-            data={data}
-            datasetSizes={{
-              categoryPercentage: 0.5,
-            }}
-            mt={numeric.length > 0 ? 7 : 0}
-          />
-        );
-      })}
+            return (
+              <Range
+                title={response.title}
+                scaleX="People"
+                labels={labels}
+                data={data}
+                datasetSizes={{
+                  categoryPercentage: 0.5,
+                }}
+                mt={numeric.length > 0 ? 7 : 0}
+              />
+            );
+          })}
 
-      <WordCloud title="Word Cloud" phrases={textualAnswers} />
+          <WordCloud title="Word Cloud" phrases={textualAnswers} />
+        </>
+      )}
     </>
   );
 };
