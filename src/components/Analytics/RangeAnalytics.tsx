@@ -99,7 +99,7 @@ export const Range = ({
   };
 
   return (
-    <Box bgColor="#525F7F4D" p="40px" borderRadius="10px" {...rest}>
+    <Box bgColor="#525F7F4D" p={["20px", "40px"]} borderRadius="10px" {...rest}>
       <Box borderBottom="1px solid #525F7F" pb={2}>
         <Heading fontSize="18px" fontWeight={500} color="white">
           {title}

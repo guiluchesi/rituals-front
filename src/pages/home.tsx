@@ -107,7 +107,7 @@ export const Home = () => {
             "translateX(0)",
             "translateX(-30%)",
           ]}
-          p="90px 50px"
+          p={["30px 20px", "90px 50px"]}
           display="flex"
           flexDir="column"
           justifyContent="center"

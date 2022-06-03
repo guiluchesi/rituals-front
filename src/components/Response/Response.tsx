@@ -25,12 +25,13 @@ export const Response = ({ response, ...rest }: ResponseProps) => {
   };
 
   return (
-    <Box bgColor="#525F7F4D" p="40px" borderRadius="10px" {...rest}>
+    <Box bgColor="#525F7F4D" p={["20px", "40px"]} borderRadius="10px" {...rest}>
       <Flex
-        alignItems="center"
+        alignItems={["flex-start", "center"]}
         justifyContent="space-between"
         borderBottom="1px solid #525F7F"
         pb={2}
+        flexDir={["column", "row"]}
       >
         <Flex>
           <Img src={userCircle} mr={2} />

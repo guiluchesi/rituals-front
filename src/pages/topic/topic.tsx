@@ -29,7 +29,11 @@ export const Topic = () => {
   return (
     <>
       <Header backgroundImage={headerImage}>
-        <Flex mt="60px" alignItems="center">
+        <Flex
+          mt="60px"
+          flexDir={["column", "row"]}
+          alignItems={["flex-start", "center"]}
+        >
           <Box
             bgColor="brand.300"
             p="0 20px"
@@ -39,29 +43,37 @@ export const Topic = () => {
           >
             Check-in
           </Box>
-          <Tag
-            bgColor="brand.700"
-            color="white"
-            fontSize="12px"
-            borderRadius="15px"
-            p="2px 10px"
-            ml={5}
-          >
-            Once a Week
-          </Tag>
-          <Tag
-            bgColor="brand.800"
-            color="white"
-            fontSize="12px"
-            borderRadius="15px"
-            p="2px 10px"
-            ml={4}
-          >
-            Company
-          </Tag>
+
+          <Flex mt={[4, 0]}>
+            <Tag
+              bgColor="brand.700"
+              color="white"
+              fontSize="12px"
+              borderRadius="15px"
+              p="2px 10px"
+              ml={[0, 5]}
+            >
+              Once a Week
+            </Tag>
+            <Tag
+              bgColor="brand.800"
+              color="white"
+              fontSize="12px"
+              borderRadius="15px"
+              p="2px 10px"
+              ml={4}
+            >
+              Company
+            </Tag>
+          </Flex>
         </Flex>
 
-        <Flex alignItems="center" justifyContent="space-between" mt={6}>
+        <Flex
+          flexDir={["column-reverse", "row"]}
+          alignItems={["flex-start", "center"]}
+          justifyContent="space-between"
+          mt={6}
+        >
           <Flex>
             <Button
               variant="ghost"
@@ -85,7 +97,7 @@ export const Topic = () => {
               Analytics
             </Button>
           </Flex>
-          <Box>
+          <Box width="100%" textAlign="right">
             <Link to="/">
               <Button
                 leftIcon={<ArrowBackIcon transform="scale(1.3)" />}
@@ -103,6 +115,7 @@ export const Topic = () => {
       <Box bgColor="brand.800" pb={12}>
         <Container
           maxWidth={["90%", "576px", "768px", "992px", "1300px", "1500px"]}
+          p={0}
         >
           <GlassCard py={10}>
             <Container>

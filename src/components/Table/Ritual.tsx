@@ -87,6 +87,7 @@ export const Ritual = ({
             <Button
               mt={[2, 2, 2, 0]}
               bgColor="brand.600"
+              w="100%"
               _hover={{
                 backgroundColor: "brand.800",
               }}

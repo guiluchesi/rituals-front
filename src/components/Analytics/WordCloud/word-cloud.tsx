@@ -38,14 +38,14 @@ export const WordCloud = ({ title, phrases }: WordCloudProps) => {
   const tags = getTagsFromPhrases(phrases);
 
   return (
-    <Box bgColor="#525F7F4D" p="40px" borderRadius="10px" mt={7}>
+    <Box bgColor="#525F7F4D" p={["20px", "40px"]} borderRadius="10px" mt={7}>
       <Box borderBottom="1px solid #525F7F" pb={2} mb={4}>
         <Heading fontSize="18px" fontWeight={500} color="white">
           {title}
         </Heading>
       </Box>
 
-      <Box maxWidth="80%" textAlign="center" margin="30px auto 0">
+      <Box maxWidth={["100%", "80%"]} textAlign="center" margin="30px auto 0">
         <TagCloud
           colorOptions={options}
           minSize={20}
