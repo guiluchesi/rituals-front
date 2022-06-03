@@ -14,7 +14,8 @@ const fieldTypes = {
 export const Analytics = ({ ritualId }: AnalyticsProps) => {
   const { analytics } = useGetAnalytics(ritualId);
 
-  const { textual, numeric, boolean } = analytics.reduce(
+  const [_, ...analyticsWithoutNameQuestion] = analytics;
+  const { textual, numeric, boolean } = analyticsWithoutNameQuestion.reduce(
     (acc, curr) => {
       const { type } = curr;
 

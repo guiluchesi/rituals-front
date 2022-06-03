@@ -11,7 +11,6 @@ describe("Word Cloud", () => {
     expect(result).toEqual([
       { value: "we", count: 2 },
       { value: "had", count: 1 },
-      { value: "a", count: 1 },
       { value: "meeting", count: 1 },
       { value: "with", count: 1 },
       { value: "the", count: 1 },
@@ -21,7 +20,6 @@ describe("Word Cloud", () => {
       { value: "too", count: 1 },
       { value: "much", count: 1 },
       { value: "meetings", count: 1 },
-      { value: "for", count: 1 },
       { value: "my", count: 1 },
       { value: "taste", count: 1 },
     ]);

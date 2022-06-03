@@ -1,9 +1,28 @@
-import { breakWords } from "./break-words";
+import { breakWords, regex } from "./break-words";
+
+describe("Regex", () => {
+  it.each([
+    [
+      `
+      Reuniões com novos clientes
+        - Tarefas
+        - Relatórios
+    `,
+      " Reuniões com novos clientes Tarefas Relatórios ",
+    ],
+    ["Eu, amo, - nossos novos clientes.", "Eu amo nossos novos clientes "],
+    ["Adoro banana!", "Adoro banana "],
+    ["Adoro\nquebra de linhas", "Adoro quebra de linhas"],
+  ])("should remove non-alphanumeric characters", (phrase, expected) => {
+    const result = phrase.replace(regex, " ");
+    expect(result).toBe(expected);
+  });
+});
 
 describe("Word Breaker", () => {
   it("should break a phrase in lower cased words", () => {
-    const phrase = `I love our new clients`;
-    const words = ["i", "love", "our", "new", "clients"];
+    const phrase = `Eu amo nossos clientes`;
+    const words = ["amo", "clientes"];
 
     const result = breakWords(phrase);
 
@@ -11,8 +30,8 @@ describe("Word Breaker", () => {
   });
 
   it("should ignore ponctuations", () => {
-    const phrase = `I, love, - our new clients.`;
-    const words = ["i", "love", "our", "new", "clients"];
+    const phrase = `Eu, amo, - nossos novos clientes.`;
+    const words = ["amo", "clientes"];
 
     const result = breakWords(phrase);
 
@@ -21,11 +40,12 @@ describe("Word Breaker", () => {
 
   it("should ignore line breaks", () => {
     const phrase = `
-      Meetings with new client
-        - Tasks
-        - Reports
+      Reuniões com novos clientes
+        - Tarefas
+        - Relatórios
     `;
-    const words = ["meetings", "with", "new", "client", "tasks", "reports"];
+
+    const words = ["reuniões", "clientes", "tarefas", "relatórios"];
 
     const result = breakWords(phrase);
 
