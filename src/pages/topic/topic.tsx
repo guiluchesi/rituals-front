@@ -1,19 +1,21 @@
 import { Box, Flex, Tag, Button, Container } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 import { Link } from "../../components/Link";
 import { Header } from "../../components/Header";
 import { GlassCard } from "../../components/Card";
 import headerImage from "../../assets/img/answer-header-banner.jpg";
 
-import { Answers } from "./answers";
+import { Responses } from "./responses";
 import { Analytics } from "./analytics";
 
 const tabs = ["answers", "analytics"];
 
 export const Topic = () => {
   const [activeTab, setActiveTab] = useState("answers");
+  const { topicId } = useParams();
 
   useEffect(() => {
     const { hash } = window.location;
@@ -38,7 +40,6 @@ export const Topic = () => {
             Check-in
           </Box>
           <Tag
-            minH="unset"
             bgColor="brand.700"
             color="white"
             fontSize="12px"
@@ -49,7 +50,6 @@ export const Topic = () => {
             Once a Week
           </Tag>
           <Tag
-            minH="unset"
             bgColor="brand.800"
             color="white"
             fontSize="12px"
@@ -106,7 +106,9 @@ export const Topic = () => {
         >
           <GlassCard py={10}>
             <Container>
-              {activeTab === "answers" && <Answers />}
+              {activeTab === "answers" && topicId && (
+                <Responses ritualId={topicId} />
+              )}
               {activeTab === "analytics" && <Analytics />}
             </Container>
           </GlassCard>

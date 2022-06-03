@@ -1,9 +1,20 @@
-import { Box, Flex, Button, Tag, StyleProps } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Button,
+  Tag,
+  StyleProps,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 
+import { useGetCompany } from "../../hooks/config/useGetCompany";
 import { Link } from "../Link";
+
 import { Table, RowProps, ColumnProps } from "./Table";
 
 export interface RitualProps extends StyleProps {
+  ritualId: string;
+  ritualLink: string;
   rows: RowProps[];
   minTopicWidth?: number;
 }
@@ -24,7 +35,14 @@ const tagColumn = (column: ColumnProps) => {
   );
 };
 
-export const Ritual = ({ rows, minTopicWidth, ...rest }: RitualProps) => {
+export const Ritual = ({
+  ritualId,
+  ritualLink,
+  rows,
+  minTopicWidth,
+  ...rest
+}: RitualProps) => {
+  const company = useGetCompany();
   const taggedRows = rows.map((row) => ({
     ...row,
     columns: row.columns.map((column) => ({
@@ -58,8 +76,14 @@ export const Ritual = ({ rows, minTopicWidth, ...rest }: RitualProps) => {
           ml={[0, 0, 0, 6]}
           mt={[4, 4, 4, 0]}
         >
-          <Button>Participate</Button>
-          <Link to="topic/123">
+          <ChakraLink
+            isExternal
+            href={`${ritualLink}?utm_source=${company}`}
+            _hover={{ textDecoration: "none" }}
+          >
+            <Button w="100%">Participate</Button>
+          </ChakraLink>
+          <Link to={`topic/${ritualId}`}>
             <Button
               mt={[2, 2, 2, 0]}
               bgColor="brand.600"

@@ -1,9 +1,15 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
+import moment from "moment";
 
 import { GlassCard } from "../components/Card";
 import { Ritual } from "../components/Table";
 import { Logo } from "../components/Logo";
 import bgImg from "../assets/img/woman-organizing-post-its.jpg";
+
+import {
+  useGetRituals,
+  Ritual as RitualType,
+} from "../hooks/rituals/useGetRituals";
 
 const pseudoBase = {
   content: `""`,
@@ -15,68 +21,45 @@ const pseudoBase = {
   zIndex: 0,
 };
 
-const rituals = [
-  {
-    name: "checkin",
-    rows: [
-      {
-        key: "checkin",
-        columns: [
-          {
-            key: "topic",
-            content: "Check-in 123",
-          },
-          {
-            key: "startDate",
-            content: "Jun 3",
-            tagColor: "brand.400",
-          },
-          {
-            key: "recurrency",
-            content: "Once a week",
-            tagColor: "brand.700",
-          },
-          {
-            key: "level",
-            content: "Company",
-            tagColor: "brand.800",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: "pulse",
-    rows: [
-      {
-        key: "pulse",
-        columns: [
-          {
-            key: "topic",
-            content: "Pulse",
-          },
-          {
-            key: "startDate",
-            content: "Jun 3",
-            tagColor: "brand.400",
-          },
-          {
-            key: "recurrency",
-            content: "Once a week",
-            tagColor: "brand.700",
-          },
-          {
-            key: "level",
-            content: "Company",
-            tagColor: "brand.800",
-          },
-        ],
-      },
-    ],
-  },
-];
+const currentDateMoment = moment();
+const parseRituals = (ritual: RitualType) => ({
+  id: ritual.id,
+  name: ritual.title,
+  link: ritual.link,
+  rows: [
+    {
+      key: ritual.id,
+      columns: [
+        {
+          key: "topic",
+          content: ritual.title,
+        },
+        {
+          key: "startDate",
+          content: currentDateMoment
+            .day(currentDateMoment.day() >= 5 ? 5 : -2)
+            .format("MMM D"),
+          tagColor: "brand.400",
+        },
+        {
+          key: "recurrency",
+          content: "Once a week",
+          tagColor: "brand.700",
+        },
+        {
+          key: "level",
+          content: "Company",
+          tagColor: "brand.800",
+        },
+      ],
+    },
+  ],
+});
 
 export const Home = () => {
+  const { rituals: ritualsRemote } = useGetRituals();
+  const rituals = ritualsRemote.map(parseRituals);
+
   const maxTopicLenght = rituals
     .flatMap((ritual) =>
       ritual.rows.map((row) => row.columns[0].content.length)
@@ -150,6 +133,8 @@ export const Home = () => {
               minTopicWidth={maxTopicLenght * pixelsPerChar}
               key={ritual.name}
               rows={ritual.rows}
+              ritualId={ritual.id}
+              ritualLink={ritual.link}
             />
           ))}
         </GlassCard>
