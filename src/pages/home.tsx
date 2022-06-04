@@ -2,7 +2,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import moment from "moment";
 
 import { GlassCard } from "../components/Card";
-import { Ritual } from "../components/Table";
+import { Ritual, RitualSkeleton } from "../components/Table";
 import { Logo } from "../components/Logo";
 import bgImg from "../assets/img/woman-organizing-post-its.jpg";
 import { useRituals, Ritual as RitualType } from "../hooks/rituals/useRituals";
@@ -53,7 +53,7 @@ const parseRituals = (ritual: RitualType) => ({
 });
 
 export const Home = () => {
-  const { data: ritualsRemote } = useRituals();
+  const { data: ritualsRemote, isFetching } = useRituals();
   const rituals = ritualsRemote?.map(parseRituals) ?? [];
 
   const maxTopicLenght = rituals
@@ -103,7 +103,7 @@ export const Home = () => {
             "translateX(0)",
             "translateX(-30%)",
           ]}
-          p={["30px 20px", "90px 50px"]}
+          p={["30px 20px", "90px 50px 50px"]}
           display="flex"
           flexDir="column"
           justifyContent="center"
@@ -123,16 +123,23 @@ export const Home = () => {
             </Text>
           </Flex>
 
-          {rituals.map((ritual) => (
-            <Ritual
-              mt={5}
-              minTopicWidth={maxTopicLenght * pixelsPerChar}
-              key={ritual.name}
-              rows={ritual.rows}
-              ritualId={ritual.id}
-              ritualLink={ritual.link}
-            />
-          ))}
+          {isFetching ? (
+            <>
+              <RitualSkeleton />
+              <RitualSkeleton mt={6} />
+            </>
+          ) : (
+            rituals.map((ritual) => (
+              <Ritual
+                mt={5}
+                minTopicWidth={maxTopicLenght * pixelsPerChar}
+                key={ritual.name}
+                rows={ritual.rows}
+                ritualId={ritual.id}
+                ritualLink={ritual.link}
+              />
+            ))
+          )}
         </GlassCard>
       </Flex>
     </Box>
