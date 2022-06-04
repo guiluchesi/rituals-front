@@ -5,7 +5,7 @@ export const Link = ({
   ...props
 }: LinkProps & React.RefAttributes<HTMLAnchorElement>) => {
   const { company } = useParams();
-  const companyTo = company ? `/${company}/${to}` : `/${to}`;
+  const companyTo = company ? `/${company}${to}` : `${to}`;
 
   return <ReactLink to={companyTo} {...props}></ReactLink>;
 };

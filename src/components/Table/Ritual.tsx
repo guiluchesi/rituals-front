@@ -82,7 +82,7 @@ export const Ritual = ({
           >
             <Button w="100%">Participate</Button>
           </ChakraLink>
-          <Link to={`topic/${ritualId}`}>
+          <Link to={`/topic/${ritualId}`}>
             <Button
               mt={[2, 2, 2, 0]}
               bgColor="brand.600"
