@@ -1,24 +1,24 @@
 import { Response } from "../../components/Response";
 import { ResponseSkeleton } from "../../components/Response/ResponseSkeleton";
-import { useGetResponses } from "../../hooks/rituals/useGetResponses";
+import { useResponses } from "../../hooks/rituals/useResponses";
 
 export interface ResponsesProps {
   ritualId: string;
 }
 
 export const Responses = ({ ritualId }: ResponsesProps) => {
-  const { responses, isLoading } = useGetResponses(ritualId);
+  const { data: responses, isFetching } = useResponses(ritualId);
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <>
           <ResponseSkeleton />
           <ResponseSkeleton />
           <ResponseSkeleton />
         </>
       ) : (
-        responses.map((response, index) => (
+        responses?.map((response, index) => (
           <Response
             key={response.id}
             response={response}

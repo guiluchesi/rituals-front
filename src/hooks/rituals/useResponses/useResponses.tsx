@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 
+import fetch from "../../../service/api";
 import { useGetCompany } from "../../config/useGetCompany";
 
 export interface AnswerProperties {
@@ -82,33 +83,18 @@ const getResponses = async (ritualId: string, company: string) => {
     company,
   });
 
-  return fetch(
-    `${
-      import.meta.env.VITE_API_PATH
-    }/rituals/${ritualId}/responses?${queryParams}`
-  ).then((res) => res.json());
+  return fetch(`/rituals/${ritualId}/responses?${queryParams}`);
 };
 
-export const useGetResponses = (ritualId: string) => {
+export const useResponses = (ritualId: string) => {
   const company = useGetCompany();
-  const [responses, setResponses] = useState<Response[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const updateResponses = () => {
-    getResponses(ritualId, company)
-      .then((responses) => setResponses(responses))
-      .finally(() => setIsLoading(false));
-  };
-
-  useEffect(() => {
-    setIsLoading(true);
-    updateResponses();
-  }, []);
-
-  return {
-    isLoading,
-    responses,
-    setResponses,
-    updateResponses,
-  };
+  return useQuery<Response[], Error>(
+    "responses",
+    () => getResponses(ritualId, company),
+    {
+      refetchOnWindowFocus: false,
+      staleTime: 1000 * 60 /* 1 minute */,
+    }
+  );
 };

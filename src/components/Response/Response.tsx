@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Text, StyleProps, Img } from "@chakra-ui/react";
 import moment from "moment";
 
 import userCircle from "../../assets/icons/user-circle.svg";
-import { Response as ResponseType } from "../../hooks/rituals/useGetResponses";
+import { Response as ResponseType } from "../../hooks/rituals/useResponses";
 
 import { TextAnswer } from "./Text";
 import { RangeAnswer } from "./Range";

@@ -5,11 +5,7 @@ import { GlassCard } from "../components/Card";
 import { Ritual } from "../components/Table";
 import { Logo } from "../components/Logo";
 import bgImg from "../assets/img/woman-organizing-post-its.jpg";
-
-import {
-  useGetRituals,
-  Ritual as RitualType,
-} from "../hooks/rituals/useGetRituals";
+import { useRituals, Ritual as RitualType } from "../hooks/rituals/useRituals";
 
 const pseudoBase = {
   content: `""`,
@@ -57,8 +53,8 @@ const parseRituals = (ritual: RitualType) => ({
 });
 
 export const Home = () => {
-  const { rituals: ritualsRemote } = useGetRituals();
-  const rituals = ritualsRemote.map(parseRituals);
+  const { data: ritualsRemote } = useRituals();
+  const rituals = ritualsRemote?.map(parseRituals) ?? [];
 
   const maxTopicLenght = rituals
     .flatMap((ritual) =>

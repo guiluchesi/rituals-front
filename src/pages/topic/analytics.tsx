@@ -1,5 +1,5 @@
 import { Range, RangeSkeleton, WordCloud } from "../../components/Analytics";
-import { Analityc, useGetAnalytics } from "../../hooks/rituals/useGetAnalytics";
+import { Analityc, useAnalytics } from "../../hooks/rituals/useAnalytics";
 
 export interface AnalyticsProps {
   ritualId: string;
@@ -12,9 +12,9 @@ const fieldTypes = {
 };
 
 export const Analytics = ({ ritualId }: AnalyticsProps) => {
-  const { analytics, isLoading } = useGetAnalytics(ritualId);
+  const { data: analytics, isFetching } = useAnalytics(ritualId);
 
-  const [_, ...analyticsWithoutNameQuestion] = analytics;
+  const [_, ...analyticsWithoutNameQuestion] = analytics ?? [];
   const { textual, numeric, boolean } = analyticsWithoutNameQuestion.reduce(
     (acc, curr) => {
       const { type } = curr;
@@ -55,7 +55,7 @@ export const Analytics = ({ ritualId }: AnalyticsProps) => {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <>
           <RangeSkeleton />
           <RangeSkeleton />
