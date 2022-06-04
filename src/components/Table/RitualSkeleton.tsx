@@ -1,9 +1,11 @@
 import { Flex, Skeleton, StyleProps } from "@chakra-ui/react";
 
+import { InternCard } from "../Card";
+
 export const RitualSkeleton = (props: StyleProps) => {
   return (
-    <Flex bg="#525F7F4D" borderRadius="10px" py={5} px={7} {...props}>
-      <Skeleton startColor="#525F7F4D" endColor="#525f7f94" w="100%" h="70px" />
+    <InternCard display="flex" py={5} px={7} {...props}>
+      <Skeleton startColor="brand.650" endColor="brand.650" w="100%" h="70px" />
 
       <Flex
         flexDir={["row", "column"]}
@@ -12,18 +14,18 @@ export const RitualSkeleton = (props: StyleProps) => {
         ml={3}
       >
         <Skeleton
-          startColor="#525F7F4D"
-          endColor="#525f7f94"
+          startColor="brand.650"
+          endColor="brand.650"
           w="100%"
           h="30px"
         />
         <Skeleton
-          startColor="#525F7F4D"
-          endColor="#525f7f94"
+          startColor="brand.650"
+          endColor="brand.650"
           w="100%"
           h="30px"
         />
       </Flex>
-    </Flex>
+    </InternCard>
   );
 };

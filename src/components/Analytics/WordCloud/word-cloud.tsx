@@ -1,6 +1,8 @@
 import { Box, Heading } from "@chakra-ui/react";
 import { TagCloud } from "react-tagcloud";
 
+import { InternCard } from "../../Card";
+
 import { getTagsFromPhrases } from "./get-tags-from-phrases";
 
 const options = {
@@ -18,7 +20,7 @@ export const WordCloud = ({ title, phrases }: WordCloudProps) => {
   const tags = getTagsFromPhrases(phrases).slice(0, maxWords);
 
   return (
-    <Box bgColor="#525F7F4D" p={["20px", "40px"]} borderRadius="10px" mt={7}>
+    <InternCard mt={7}>
       <Box borderBottom="1px solid #525F7F" pb={2} mb={4}>
         <Heading fontSize="18px" fontWeight={500} color="white">
           {title}
@@ -33,6 +35,6 @@ export const WordCloud = ({ title, phrases }: WordCloudProps) => {
           maxSize={55}
         />
       </Box>
-    </Box>
+    </InternCard>
   );
 };

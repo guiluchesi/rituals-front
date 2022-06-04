@@ -8,6 +8,8 @@ import {
   ChartOptions,
 } from "chart.js";
 
+import { InternCard } from "../Card";
+
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 interface DatasetSizes {
@@ -101,7 +103,7 @@ export const Range = ({
   };
 
   return (
-    <Box bgColor="#525F7F4D" p={["20px", "40px"]} borderRadius="10px" {...rest}>
+    <InternCard {...rest}>
       <Box borderBottom="1px solid #525F7F" pb={2}>
         <Heading fontSize="18px" fontWeight={500} color="white">
           {title}
@@ -110,6 +112,6 @@ export const Range = ({
       <Box maxHeight={`${60 * labels.length}px`}>
         <Bar options={options} data={chartData} />;
       </Box>
-    </Box>
+    </InternCard>
   );
 };

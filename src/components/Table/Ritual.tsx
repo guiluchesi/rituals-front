@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useGetCompany } from "../../hooks/config/useGetCompany";
+import { InternCard } from "../Card";
 import { Link } from "../Link";
 
 import { Table, RowProps, ColumnProps } from "./Table";
@@ -52,9 +53,7 @@ export const Ritual = ({
   }));
 
   return (
-    <Box
-      bg="#525F7F4D"
-      borderRadius="10px"
+    <InternCard
       boxShadow="0px 0px 14px rgba(0, 0, 0, 0.03), 0px 0px 56px rgba(83, 83, 191, 0.07)"
       mt={6}
       py={5}
@@ -97,6 +96,6 @@ export const Ritual = ({
           </Link>
         </Flex>
       </Flex>
-    </Box>
+    </InternCard>
   );
 };

@@ -1,6 +1,7 @@
-import { Box, Flex, Heading, Text, StyleProps, Img } from "@chakra-ui/react";
+import { Flex, Heading, Text, StyleProps, Img } from "@chakra-ui/react";
 import moment from "moment";
 
+import { InternCard } from "../Card";
 import userCircle from "../../assets/icons/user-circle.svg";
 import { Response as ResponseType } from "../../hooks/rituals/useResponses";
 
@@ -25,7 +26,7 @@ export const Response = ({ response, ...rest }: ResponseProps) => {
   };
 
   return (
-    <Box bgColor="#525F7F4D" p={["20px", "40px"]} borderRadius="10px" {...rest}>
+    <InternCard {...rest}>
       <Flex
         alignItems={["flex-start", "center"]}
         justifyContent="space-between"
@@ -76,6 +77,6 @@ export const Response = ({ response, ...rest }: ResponseProps) => {
           );
         }
       })}
-    </Box>
+    </InternCard>
   );
 };
