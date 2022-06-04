@@ -7,6 +7,10 @@ export interface TextAnswerProps extends AnswerBasicProps {}
 export const TextAnswer = ({ question, answer }: TextAnswerProps) => (
   <Box mt={4}>
     <Text color="white">{question}</Text>
-    <Text color="#798BB9">{answer ?? "-"}</Text>
+    <Box color="#798BB9">
+      {answer
+        ? answer.split("\n").map((text: string) => <Text>{text}</Text>)
+        : "-"}
+    </Box>
   </Box>
 );
