@@ -1,7 +1,7 @@
 import { Box, Flex, Tag, Button, Container } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { Link } from "../../components/Link";
 import { Header } from "../../components/Header";
@@ -16,13 +16,19 @@ const tabs = ["answers", "analytics"];
 export const Topic = () => {
   const [activeTab, setActiveTab] = useState("answers");
   const { topicId } = useParams();
+  const navigate = useNavigate();
+
+  const changeTab = (tab: string) => {
+    setActiveTab(tab);
+    navigate(`#${tab}`, { replace: true });
+  };
 
   useEffect(() => {
     const { hash } = window.location;
     const tab = hash.replace("#", "").toLowerCase();
 
     if (tab && tabs.includes(tab) && tab !== activeTab) {
-      setActiveTab(tab);
+      changeTab(tab);
     }
   }, []);
 
@@ -81,7 +87,7 @@ export const Topic = () => {
               color={activeTab === "answers" ? "white" : "#525F7F"}
               borderColor={activeTab === "answers" ? "white" : "transparent"}
               p="20px 30px"
-              onClick={() => setActiveTab("answers")}
+              onClick={() => changeTab("answers")}
             >
               Answers
             </Button>
@@ -92,7 +98,7 @@ export const Topic = () => {
               borderColor={activeTab === "analytics" ? "white" : "transparent"}
               ml={4}
               p="20px 30px"
-              onClick={() => setActiveTab("analytics")}
+              onClick={() => changeTab("analytics")}
             >
               Analytics
             </Button>
