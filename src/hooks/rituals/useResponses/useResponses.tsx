@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 
 import fetch from "../../../service/api";
 import { useGetCompany } from "../../config/useGetCompany";
+import { useGetCyleData } from "../../config/useGetCyleData";
 
 export interface AnswerProperties {
   description?: string;
@@ -78,20 +79,27 @@ export interface Response {
   answers: Answer[];
 }
 
-const getResponses = async (ritualId: string, company: string) => {
-  const queryParams = new URLSearchParams({
-    company,
-  });
-
+const getResponses = async (
+  ritualId: string,
+  query: {
+    company: string;
+    since: string;
+  }
+) => {
+  const queryParams = new URLSearchParams(query);
   return fetch(`/rituals/${ritualId}/responses?${queryParams}`);
 };
 
 export const useResponses = (ritualId: string) => {
   const company = useGetCompany();
+  const since = useGetCyleData({
+    cadence: "weekly",
+    format: "YYYY-MM-DDThh:mm:ss",
+  });
 
   return useQuery<Response[], Error>(
     "responses",
-    () => getResponses(ritualId, company),
+    () => getResponses(ritualId, { company, since: since ?? "" }),
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 /* 1 minute */,

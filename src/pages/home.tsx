@@ -1,11 +1,11 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import moment from "moment";
 
 import { GlassCard } from "../components/Card";
 import { Ritual, RitualSkeleton } from "../components/Table";
 import { Logo } from "../components/Logo";
 import bgImg from "../assets/img/woman-organizing-post-its.jpg";
 import { useRituals, Ritual as RitualType } from "../hooks/rituals/useRituals";
+import { useGetCyleData } from "../hooks/config/useGetCyleData";
 
 const pseudoBase = {
   content: `""`,
@@ -17,44 +17,43 @@ const pseudoBase = {
   zIndex: 0,
 };
 
-const currentDateMoment = moment();
-const parseRituals = (ritual: RitualType) => ({
-  id: ritual.id,
-  name: ritual.title,
-  link: ritual.link,
-  rows: [
-    {
-      key: ritual.id,
-      columns: [
-        {
-          key: "topic",
-          content: ritual.title,
-        },
-        {
-          key: "startDate",
-          content: currentDateMoment
-            .day(currentDateMoment.day() >= 5 ? 5 : -2)
-            .format("MMM D"),
-          tagColor: "brand.400",
-        },
-        {
-          key: "recurrency",
-          content: "Once a week",
-          tagColor: "brand.700",
-        },
-        {
-          key: "level",
-          content: "Company",
-          tagColor: "brand.800",
-        },
-      ],
-    },
-  ],
-});
+const parseRituals =
+  (startDate: string | undefined) => (ritual: RitualType) => ({
+    id: ritual.id,
+    name: ritual.title,
+    link: ritual.link,
+    rows: [
+      {
+        key: ritual.id,
+        columns: [
+          {
+            key: "topic",
+            content: ritual.title,
+          },
+          {
+            key: "startDate",
+            content: startDate ?? "",
+            tagColor: "brand.400",
+          },
+          {
+            key: "recurrency",
+            content: "Once a week",
+            tagColor: "brand.700",
+          },
+          {
+            key: "level",
+            content: "Company",
+            tagColor: "brand.800",
+          },
+        ],
+      },
+    ],
+  });
 
 export const Home = () => {
   const { data: ritualsRemote, isFetching } = useRituals();
-  const rituals = ritualsRemote?.map(parseRituals) ?? [];
+  const startDate = useGetCyleData({ cadence: "weekly", format: "MMM D" });
+  const rituals = ritualsRemote?.map(parseRituals(startDate)) ?? [];
 
   const maxTopicLenght = rituals
     .flatMap((ritual) =>
