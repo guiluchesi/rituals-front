@@ -118,7 +118,7 @@ export const Topic = () => {
           </Box>
         </Flex>
       </Header>
-      <Box bgColor="brand.800" pb={12}>
+      <Box bgColor="brand.800" pb={12} minH="calc(100vh - 430px)">
         <Container
           maxWidth={["90%", "576px", "768px", "992px", "1300px", "1500px"]}
           p={0}
@@ -133,11 +133,10 @@ export const Topic = () => {
               )}
             </Container>
           </GlassCard>
+        </Container>
 
-          <Link
-            to="/"
-            style={{ display: "block", textAlign: "right", marginTop: 30 }}
-          >
+        <Container mt={6} textAlign="right">
+          <Link to="/">
             <Button
               leftIcon={<ArrowBackIcon transform="scale(1.3)" />}
               bgColor="#32304A"
