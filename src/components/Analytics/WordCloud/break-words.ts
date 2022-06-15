@@ -5,7 +5,7 @@ export const regex = /[~!@#$%&*()_+\-\,\./`<>?'";:|{}[\]\s]+/g;
 export const breakWords = (phrase: string): string[] => {
   const words = phrase
     .toLowerCase()
-    .replace(/\d/g, "")
+    .replace(/(\s\d+\s)/g, " ")
     .replace(regex, " ")
     .trim()
     .split(/\s/g)

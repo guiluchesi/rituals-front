@@ -21,7 +21,7 @@ describe("Regex", () => {
 
 describe("Word Breaker", () => {
   it("should break a phrase in lower cased words", () => {
-    const phrase = `Eu amo nossos 9 clientes`;
+    const phrase = `Eu amo nossos clientes`;
     const words = ["amo", "clientes"];
 
     const result = breakWords(phrase);
@@ -30,7 +30,7 @@ describe("Word Breaker", () => {
   });
 
   it("should ignore ponctuations", () => {
-    const phrase = `Eu, amo, - nossos novos 4 clientes.`;
+    const phrase = `Eu, amo, - nossos novos clientes.`;
     const words = ["amo", "clientes"];
 
     const result = breakWords(phrase);
@@ -41,11 +41,20 @@ describe("Word Breaker", () => {
   it("should ignore line breaks", () => {
     const phrase = `
       Reuniões com novos clientes
-        - 2 Tarefas
-        - 4 Relatórios
+        - Tarefas
+        - Relatórios
     `;
 
     const words = ["reuniões", "clientes", "tarefas", "relatórios"];
+
+    const result = breakWords(phrase);
+
+    expect(result).toEqual(words);
+  });
+
+  it("should remove numbers alone", () => {
+    const phrase = `Eu amo nossos 92 clientes do Q3 pagando 2k`;
+    const words = ["amo", "clientes", "q3", "pagando", "2k"];
 
     const result = breakWords(phrase);
 
