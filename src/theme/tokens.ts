@@ -1,5 +1,6 @@
 export const colors = {
   brand: {
+    200: "#798BB9",
     300: "#9DFFF9",
     400: "#8C8BFF",
     500: "#6F6EFF",

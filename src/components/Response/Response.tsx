@@ -8,6 +8,8 @@ import { Response as ResponseType } from "../../hooks/rituals/useResponses";
 import { TextAnswer } from "./Text";
 import { RangeAnswer } from "./Range";
 import { BooleanAnswer } from "./Boolean";
+import { useGetComments } from "../../hooks/comments/useGetComments";
+import { Comments } from "../Comments";
 
 export interface AnswerBasicProps {
   question: string;
@@ -19,6 +21,10 @@ export interface ResponseProps extends StyleProps {
 }
 
 export const Response = ({ response, ...rest }: ResponseProps) => {
+  const { data: comments } = useGetComments({
+    id: response.id,
+  });
+
   const answerTypes = {
     text: ["short_text", "long_text"],
     range: ["opinion_scale"],
@@ -42,7 +48,6 @@ export const Response = ({ response, ...rest }: ResponseProps) => {
         </Flex>
         <Text color="#525F80">{moment(response.submitted).format("LLL")}</Text>
       </Flex>
-
       {response.answers.map((answer) => {
         const userAnswer = answer[answer.type];
 
@@ -77,6 +82,13 @@ export const Response = ({ response, ...rest }: ResponseProps) => {
           );
         }
       })}
+
+      <Comments
+        comments={comments?.data ?? []}
+        responseId={response.id}
+        color="brand.200"
+        mt={6}
+      />
     </InternCard>
   );
 };
