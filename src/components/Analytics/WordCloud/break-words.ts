@@ -6,7 +6,7 @@ export const breakWords = (phrase: string): string[] => {
   const words = phrase
     .toLowerCase()
     .replace(regex, " ")
-    .replace(/\s([0-9\s]*)\s/g, " ")
+    .replace(/(\s|^)([0-9\s]*)(\s|$)/g, " ")
     .trim()
     .split(/\s/g)
     .filter(Boolean)

@@ -53,7 +53,7 @@ describe("Word Breaker", () => {
   });
 
   it("should remove numbers alone", () => {
-    const phrase = `Eu amo 100% dos nossos 92 clientes do Q3 pagando 2k em 1-2 meses`;
+    const phrase = `1. Eu amo 100% dos nossos 92 clientes do Q3 pagando 2k em 1-2 meses 3`;
     const words = ["amo", "clientes", "q3", "pagando", "2k"];
 
     const result = breakWords(phrase);
