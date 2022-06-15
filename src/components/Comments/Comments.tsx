@@ -38,6 +38,7 @@ export const Comments = ({
 
   const handleAddComment = (newComment: Partial<CommentType>) => {
     setCommentList([newComment, ...commentList]);
+    setShowCommentForm(false);
   };
 
   return (
