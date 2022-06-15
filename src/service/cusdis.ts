@@ -66,7 +66,6 @@ export const getComments = async ({
   page: number;
   skipPagination?: boolean;
 }): Promise<GetCommentsResponse> => {
-  console.log("query", id, page);
   const { data: commentsData } = await fetch(
     `${baseUrl}/comments?page=${page}&appId=${appId}&pageId=${id}`
   ).then((res) => res.json());

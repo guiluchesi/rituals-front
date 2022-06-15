@@ -30,14 +30,14 @@ export const Comments = ({
   ...rest
 }: CommentsProps) => {
   const [showCommentForm, setShowCommentForm] = useState(false);
-  const [commentList, setCommentList] = useState(comments);
+  const [commentList, setCommentList] = useState(comments.reverse());
 
   useEffect(() => {
-    setCommentList(comments);
+    setCommentList(comments.reverse());
   }, [comments]);
 
   const handleAddComment = (newComment: Partial<CommentType>) => {
-    setCommentList([newComment, ...commentList]);
+    setCommentList([...commentList, newComment]);
     setShowCommentForm(false);
   };
 
