@@ -1,0 +1,1 @@
+export { ritualsRoutes } from "./rituals";

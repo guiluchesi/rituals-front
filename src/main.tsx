@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import App from "./App";
 import { theme } from "./theme";
 import { HotjarProvider } from "./components/Hotjar";
+import "./mirage";
 
 const queryClient = new QueryClient();
 
