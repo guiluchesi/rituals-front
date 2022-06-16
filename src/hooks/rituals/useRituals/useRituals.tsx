@@ -16,8 +16,19 @@ const getRituals = async () => {
   return fetch(`/rituals?${queryParams}`);
 };
 
+const getRitual = async (ritualId: string) => {
+  return fetch(`/rituals/${ritualId}`);
+};
+
 export const useRituals = () => {
   return useQuery<Ritual[], Error>("rituals", getRituals, {
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 /* 1 minute */,
+  });
+};
+
+export const useRitual = (ritualId: string) => {
+  return useQuery<Ritual, Error>("ritual", () => getRitual(ritualId), {
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 /* 1 minute */,
   });

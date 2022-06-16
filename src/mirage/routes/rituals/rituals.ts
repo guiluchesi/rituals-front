@@ -7,3 +7,4 @@ const data = [
 ];
 
 export const getRituals = () => data;
+export const getRitual = () => data[0];

@@ -10,12 +10,15 @@ import headerImage from "../../assets/img/answer-header-banner.jpg";
 
 import { Responses } from "./responses";
 import { Analytics } from "./analytics";
+import { useRitual } from "../../hooks/rituals/useRituals/useRituals";
 
 const tabs = ["answers", "analytics"];
 
 export const Topic = () => {
   const [activeTab, setActiveTab] = useState("answers");
   const { topicId } = useParams();
+  const { data: ritual } = useRitual(topicId ?? "");
+
   const navigate = useNavigate();
 
   const changeTab = (tab: string) => {
@@ -47,7 +50,7 @@ export const Topic = () => {
             fontSize="28px"
             fontWeight={900}
           >
-            Check-in
+            {ritual?.title}
           </Box>
 
           <Flex mt={[4, 0]}>
