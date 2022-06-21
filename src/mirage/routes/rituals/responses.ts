@@ -3,6 +3,7 @@ const data = [
     id: "cunp0sguiu62cun447jcnuyoh1v7tsum",
     submitted: "2022-06-13T13:52:54Z",
     owner: "marcel",
+    ownerEmail: "guilherme.luchesi@getbud.co",
     answers: [
       {
         fieldId: "muoKhHdgwdBo",

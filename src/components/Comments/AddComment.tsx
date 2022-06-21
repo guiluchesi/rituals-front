@@ -13,11 +13,13 @@ import { addComment, Comment as CommentType } from "../../service/cusdis";
 
 interface AddCommentProps extends StyleProps {
   responseId: string;
+  notifyTo?: string;
   handleAddComment?: (comment: Partial<CommentType>) => void;
 }
 
 export const AddComment = ({
   responseId,
+  notifyTo,
   handleAddComment,
   ...rest
 }: AddCommentProps) => {
@@ -47,9 +49,12 @@ export const AddComment = ({
     const data = {
       content: comment,
       nickname: name,
+      email: notifyTo,
       pageId: responseId,
       parentId: undefined,
     };
+
+    console.log({ data, notifyTo });
 
     setIsLoading(true);
     const addedComment = await addComment(data);

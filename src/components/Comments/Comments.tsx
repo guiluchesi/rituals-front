@@ -8,6 +8,7 @@ import { Comment as CommentIcon } from "../../assets/icons/comments";
 
 interface CommentsProps extends StyleProps {
   comments: Partial<CommentType>[];
+  notifyTo?: string;
   responseId: string;
 }
 
@@ -27,6 +28,7 @@ export const Comments = ({
   comments,
   color,
   responseId,
+  notifyTo,
   ...rest
 }: CommentsProps) => {
   const [showCommentForm, setShowCommentForm] = useState(false);
@@ -73,6 +75,7 @@ export const Comments = ({
         {showCommentForm ? (
           <AddComment
             responseId={responseId}
+            notifyTo={notifyTo}
             mt={6}
             handleAddComment={handleAddComment}
           />

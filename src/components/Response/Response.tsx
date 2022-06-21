@@ -86,6 +86,7 @@ export const Response = ({ response, ...rest }: ResponseProps) => {
       <Comments
         comments={comments?.data ?? []}
         responseId={response.id}
+        notifyTo={response.ownerEmail}
         color="brand.200"
         mt={6}
       />

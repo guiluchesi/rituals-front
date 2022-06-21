@@ -76,6 +76,7 @@ export interface Response {
   id: string;
   submitted: string;
   owner: string;
+  ownerEmail?: string;
   answers: Answer[];
 }
 
