@@ -1,4 +1,6 @@
-const baseUrl = "https://cusdis.com/api/open";
+const baseUrl = import.meta.env.DEV
+  ? import.meta.env.VITE_API_PATH
+  : "https://cusdis.com/api/open";
 const appId = "3896125a-c074-4577-9530-19838d9ba62e";
 
 export interface CommentCreation {
@@ -109,6 +111,7 @@ export const getCommentsCount = async (ids: string[]) => {
 
 export const addComment = async ({
   pageId,
+  email,
   nickname,
   content,
   parentId,
@@ -116,7 +119,7 @@ export const addComment = async ({
   const comment = {
     appId,
     content,
-    email: "",
+    email,
     nickname,
     pageId,
     parentId,
