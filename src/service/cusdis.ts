@@ -1,5 +1,5 @@
 const baseUrl = import.meta.env.DEV
-  ? import.meta.env.VITE_API_PATH
+  ? import.meta.env.VITE_MIRAGE_ACTIVE
   : "https://cusdis.com/api/open";
 const appId = "3896125a-c074-4577-9530-19838d9ba62e";
 

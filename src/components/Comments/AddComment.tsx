@@ -54,8 +54,6 @@ export const AddComment = ({
       parentId: undefined,
     };
 
-    console.log({ data, notifyTo });
-
     setIsLoading(true);
     const addedComment = await addComment(data);
     setIsLoading(false);
