@@ -14,14 +14,6 @@ const data = [
         text: "marcel",
       },
       {
-        fieldId: "ad1uygd276g",
-        fieldType: "short_text",
-        question: "Qual seu e-mail? 📨",
-        properties: {},
-        type: "text",
-        text: "guilherme.luchesi@getbud.co",
-      },
-      {
         fieldId: "X5caiLW8nenf",
         fieldType: "opinion_scale",
         question: "Oi! Está tudo bem com você? ",
