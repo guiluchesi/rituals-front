@@ -14,40 +14,41 @@ const fieldTypes = {
 export const Analytics = ({ ritualId }: AnalyticsProps) => {
   const { data: analytics, isFetching } = useAnalytics(ritualId);
 
-  const [_, ...analyticsWithoutNameQuestion] = analytics ?? [];
-  const { textual, numeric, boolean } = analyticsWithoutNameQuestion.reduce(
-    (acc, curr) => {
-      const { type } = curr;
+  const [_, __, ...analyticsWithoutNameAndEmailQuestion] = analytics ?? [];
+  const { textual, numeric, boolean } =
+    analyticsWithoutNameAndEmailQuestion.reduce(
+      (acc, curr) => {
+        const { type } = curr;
 
-      if (fieldTypes.text.includes(type)) {
-        return {
-          ...acc,
-          textual: [...acc.textual, curr],
-        };
+        if (fieldTypes.text.includes(type)) {
+          return {
+            ...acc,
+            textual: [...acc.textual, curr],
+          };
+        }
+
+        if (fieldTypes.range.includes(type)) {
+          return {
+            ...acc,
+            numeric: [...acc.numeric, curr],
+          };
+        }
+
+        if (fieldTypes.boolean.includes(type)) {
+          return {
+            ...acc,
+            boolean: [...acc.boolean, curr],
+          };
+        }
+
+        return acc;
+      },
+      {
+        textual: [] as Analityc[],
+        numeric: [] as Analityc[],
+        boolean: [] as Analityc[],
       }
-
-      if (fieldTypes.range.includes(type)) {
-        return {
-          ...acc,
-          numeric: [...acc.numeric, curr],
-        };
-      }
-
-      if (fieldTypes.boolean.includes(type)) {
-        return {
-          ...acc,
-          boolean: [...acc.boolean, curr],
-        };
-      }
-
-      return acc;
-    },
-    {
-      textual: [] as Analityc[],
-      numeric: [] as Analityc[],
-      boolean: [] as Analityc[],
-    }
-  );
+    );
 
   const textualAnswers = textual.flatMap(
     (response) => response.answers as string[]
