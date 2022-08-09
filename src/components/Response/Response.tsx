@@ -48,40 +48,45 @@ export const Response = ({ response, ...rest }: ResponseProps) => {
         </Flex>
         <Text color="#525F80">{moment(response.submitted).format("LLL")}</Text>
       </Flex>
-      {response.answers.map((answer) => {
-        const userAnswer = answer[answer.type];
+      {response.answers
+        .filter((answer) => {
+          const userAnswer = answer[answer.type];
+          return Boolean(userAnswer);
+        })
+        .map((answer) => {
+          const userAnswer = answer[answer.type];
 
-        if (answerTypes.text.includes(answer.fieldType)) {
-          return (
-            <TextAnswer
-              key={answer.fieldId}
-              question={answer.question}
-              answer={userAnswer}
-            />
-          );
-        }
+          if (answerTypes.text.includes(answer.fieldType)) {
+            return (
+              <TextAnswer
+                key={answer.fieldId}
+                question={answer.question}
+                answer={userAnswer}
+              />
+            );
+          }
 
-        if (answerTypes.range.includes(answer.fieldType)) {
-          return (
-            <RangeAnswer
-              key={answer.fieldId}
-              question={answer.question}
-              answer={userAnswer}
-              range={answer.properties.steps}
-            />
-          );
-        }
+          if (answerTypes.range.includes(answer.fieldType)) {
+            return (
+              <RangeAnswer
+                key={answer.fieldId}
+                question={answer.question}
+                answer={userAnswer}
+                range={answer.properties.steps}
+              />
+            );
+          }
 
-        if (answerTypes.boolean.includes(answer.fieldType)) {
-          return (
-            <BooleanAnswer
-              key={answer.fieldId}
-              question={answer.question}
-              answer={userAnswer}
-            />
-          );
-        }
-      })}
+          if (answerTypes.boolean.includes(answer.fieldType)) {
+            return (
+              <BooleanAnswer
+                key={answer.fieldId}
+                question={answer.question}
+                answer={userAnswer}
+              />
+            );
+          }
+        })}
 
       <Comments
         comments={comments?.data ?? []}
