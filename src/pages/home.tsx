@@ -6,6 +6,7 @@ import { Logo } from "../components/Logo";
 import bgImg from "../assets/img/woman-organizing-post-its.jpg";
 import { useRituals, Ritual as RitualType } from "../hooks/rituals/useRituals";
 import { useGetCyleData } from "../hooks/config/useGetCyleData";
+import { useGetCompany } from "../hooks/config/useGetCompany";
 
 const pseudoBase = {
   content: `""`,
@@ -51,7 +52,8 @@ const parseRituals =
   });
 
 export const Home = () => {
-  const { data: ritualsRemote, isFetching } = useRituals();
+  const company = useGetCompany();
+  const { data: ritualsRemote, isFetching } = useRituals(company);
   const startDate = useGetCyleData({ cadence: "weekly", format: "MMM D" });
   const rituals = ritualsRemote?.map(parseRituals(startDate)) ?? [];
 
