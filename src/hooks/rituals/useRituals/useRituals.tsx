@@ -10,7 +10,7 @@ export interface Ritual {
 
 export const getRituals = async (company: string) => {
   const queryParams = new URLSearchParams({
-    search: company === "bud" ? "retrospectiva" : "check",
+    search: "retrospectiva",
   });
 
   return fetch(`/rituals?${queryParams}`);

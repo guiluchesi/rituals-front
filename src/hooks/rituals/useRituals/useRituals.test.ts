@@ -18,9 +18,9 @@ describe("Rituals", () => {
     expect(fetch).toBeCalledWith("/rituals?search=retrospectiva");
   });
 
-  it("should query for checkin if the company is other than bud", () => {
+  it("should query for retrospectiva if the company is other than bud", () => {
     getRituals("fabercastell");
 
-    expect(fetch).toBeCalledWith("/rituals?search=check");
+    expect(fetch).toBeCalledWith("/rituals?search=retrospectiva");
   });
 });
