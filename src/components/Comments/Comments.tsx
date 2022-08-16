@@ -32,14 +32,14 @@ export const Comments = ({
   ...rest
 }: CommentsProps) => {
   const [showCommentForm, setShowCommentForm] = useState(false);
-  const [commentList, setCommentList] = useState(comments.reverse());
+  const [commentList, setCommentList] = useState<Partial<CommentType>[]>([]);
 
   useEffect(() => {
-    setCommentList(comments.reverse());
+    if (!commentList.length) setCommentList(comments);
   }, [comments]);
 
   const handleAddComment = (newComment: Partial<CommentType>) => {
-    setCommentList([...commentList, newComment]);
+    setCommentList([newComment, ...commentList]);
     setShowCommentForm(false);
   };
 
@@ -61,6 +61,7 @@ export const Comments = ({
           comment={comment.content ?? ""}
           author={comment.by_nickname ?? ""}
           replies={comment?.replies?.data ?? []}
+          createdAt={comment.createdAt ?? ""}
           mt={index === 0 ? 0 : 4}
         />
       ))}
