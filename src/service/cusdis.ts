@@ -71,8 +71,8 @@ export const getComments = async ({
   ).then((res) => res.json());
 
   if (
-    commentsData.pageCount > 1 &&
-    page <= commentsData.pageCount &&
+    commentsData?.pageCount > 1 &&
+    page <= commentsData?.pageCount &&
     !skipPagination
   ) {
     const [_, ...pages] = Array.from(
