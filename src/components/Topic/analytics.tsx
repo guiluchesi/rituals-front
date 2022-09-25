@@ -50,8 +50,6 @@ export const Analytics = ({ ritualId }: AnalyticsProps) => {
       }
     );
 
-  console.log({ textual, numeric, boolean });
-
   const textualAnswers = textual.flatMap(
     (response) => response.answers as string[]
   );

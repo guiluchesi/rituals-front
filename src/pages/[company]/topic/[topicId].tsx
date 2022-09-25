@@ -29,11 +29,11 @@ interface TopicProps {
 
 const Topic = ({ topicId, ritual, responses }: TopicProps) => {
   const [activeTab, setActiveTab] = useState("answers");
-  // const { push } = useRouter();
+  const { push } = useRouter();
 
   const changeTab = (tab: string) => {
     setActiveTab(tab);
-    // push(`#${tab}`, undefined, { shallow: true });
+    push(`#${tab}`, undefined, { shallow: true });
   };
 
   useEffect(() => {
