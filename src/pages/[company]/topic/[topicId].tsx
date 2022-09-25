@@ -1,6 +1,7 @@
 import { Box, Flex, Tag, Button, Container } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { Link } from "../../../components/Link";
@@ -50,6 +51,9 @@ const Topic = ({ topicId, ritual, responses }: TopicProps) => {
 
   return (
     <>
+      <Head>
+        <title>Rituals.com - Respostas de {ritual?.title}</title>
+      </Head>
       <Header backgroundImage={headerImage.src}>
         <Flex
           mt="60px"
