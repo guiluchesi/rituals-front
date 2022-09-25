@@ -31,6 +31,7 @@ interface TopicProps {
 const Topic = ({ topicId, ritual, responses }: TopicProps) => {
   const [activeTab, setActiveTab] = useState("answers");
   const { push } = useRouter();
+  const title = `Rituals.com - Respostas de ${ritual.title}`;
 
   const changeTab = (tab: string) => {
     setActiveTab(tab);
@@ -52,7 +53,7 @@ const Topic = ({ topicId, ritual, responses }: TopicProps) => {
   return (
     <>
       <Head>
-        <title>Rituals.com - Respostas de {ritual?.title}</title>
+        <title>{title}</title>
       </Head>
       <Header backgroundImage={headerImage.src}>
         <Flex
