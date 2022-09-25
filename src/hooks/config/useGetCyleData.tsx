@@ -13,6 +13,6 @@ export const getCyleDate = ({ cadence, format }: CycleDataProps) => {
       currentDateMoment.day() >= 5 ? 5 : -2
     );
 
-    return lastFriday.subtract(1, "week").format(format);
+    return lastFriday.format(format);
   }
 };
