@@ -23,7 +23,7 @@ const nextConfig = {
     },
   },
   publicRuntimeConfig: {
-    applicationUrl: NEXT_PUBLIC_VERCEL_URL ?? VERCEL_URL,
+    applicationUrl: `https://${NEXT_PUBLIC_VERCEL_URL ?? VERCEL_URL}`,
     env: NODE_ENV,
     server: API_PATH,
   },
