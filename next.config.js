@@ -8,6 +8,7 @@ const {
   SMTP_HOST,
   SMTP_USER,
   SMTP_PASSWORD,
+  NEXT_PUBLIC_VERCEL_URL,
 } = process.env;
 
 const nextConfig = {
@@ -22,7 +23,7 @@ const nextConfig = {
     },
   },
   publicRuntimeConfig: {
-    applicationUrl: VERCEL_URL,
+    applicationUrl: NEXT_PUBLIC_VERCEL_URL ?? VERCEL_URL,
     env: NODE_ENV,
     server: API_PATH,
   },
