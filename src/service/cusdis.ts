@@ -57,6 +57,23 @@ export interface AddCommentResponse {
   updatedAt: string;
 }
 
+export interface CusdisWebhook {
+  type: string;
+  data: {
+    by_nickname: string;
+    by_email: string;
+    content: string;
+    page_id: string;
+    page_title: string | null;
+    project_title: string;
+    approve_link: string;
+  };
+}
+
+interface ApproveCommentResponse {
+  message: string;
+}
+
 export const getComments = async ({
   id,
   page = 1,
@@ -132,4 +149,21 @@ export const addComment = async ({
   }).then((res): Promise<{ data: AddCommentResponse }> => res.json());
 
   return createdComment;
+};
+
+export const approveComment = async (
+  hookData: CusdisWebhook["data"]
+): Promise<any> => {
+  const tokenMatches = hookData.approve_link.match(/token=([^&]*)/);
+  const token = tokenMatches ? tokenMatches[1] : "";
+  const route = `${baseUrl}/approve?token=${token}`;
+
+  const { data } = await fetch(route, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res): Promise<{ data: ApproveCommentResponse }> => res.json());
+
+  return data.message === "success";
 };

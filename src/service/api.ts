@@ -2,7 +2,8 @@ import getConfig from "next/config";
 
 const customFetch = async (url: string) => {
   const { publicRuntimeConfig } = getConfig();
-  const baseUrl = publicRuntimeConfig.server ?? "http://localhost:8000";
+  const baseUrl =
+    publicRuntimeConfig.server ?? publicRuntimeConfig.applicationUrl + "/api";
 
   return fetch(`${baseUrl}${url}`).then((res) => res.json());
 };
